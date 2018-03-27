@@ -42,6 +42,23 @@ var cats = [
     	age: 3 }
 ];
 
+var students = [
+    { 
+    	id: 1, 
+    	name: 'Jack', 
+    	lastName: 'Stein' 
+    },
+    { 
+    	id: 2, 
+    	name: 'Bobby', 
+    	lastName:'Blue' 
+    },
+    { 
+    	id: 3, 
+    	name: 'Karen', 
+    	lastName: 'Smith' 
+    }
+];
 app.get('/api/dogs', function(req, res) {
     res.json(dogs);
 });
@@ -120,6 +137,19 @@ app.get('/api/catNamesWith/:letter', function(req, res){
 	console.log(firstLetter);
 	res.json(firstLetter);
 });
+
+app.get('/api/students', function(req, res){
+	var studentIdFromUrl = req.query.id;
+
+	var studentsWithThatId = students.filter(function(person){
+		if (studentIdFromUrl === ''){
+			return person;
+		}
+		return person.id == studentIdFromUrl;
+	})
+	res.json(studentsWithThatId);
+});
+
 
 
 app.listen(3000, function() {
